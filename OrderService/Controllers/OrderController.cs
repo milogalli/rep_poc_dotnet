@@ -6,14 +6,9 @@ using OrderService.Models;
 
 [ApiController]
 [Route("api/[controller]")]
-public class OrderController : ControllerBase
+public class OrderController(IOrderManager orderManager) : ControllerBase
 {
-    private readonly IOrderManager _orderManager;
-
-    public OrderController(IOrderManager orderManager)
-    {
-        _orderManager = orderManager;
-    }
+    private readonly IOrderManager _orderManager = orderManager;
 
     [HttpGet]
     public ActionResult<IEnumerable<Order>> GetAll() => Ok(_orderManager.GetAllOrders());

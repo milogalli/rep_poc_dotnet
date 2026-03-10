@@ -10,25 +10,17 @@ public interface IOrderManager
     IEnumerable<Order> GetAllOrders();
 }
 
-public class OrderManager : IOrderManager
+public class OrderManager(HttpClient httpClient, ILogger<OrderManager> logger) : IOrderManager
 {
-    private readonly HttpClient _httpClient;
-    private readonly ILogger<OrderManager> _logger;
-    private readonly List<Order> _orders = new();
+    private readonly HttpClient _httpClient = httpClient;
+    private readonly ILogger<OrderManager> _logger = logger;
+    private readonly List<Order> _orders = [];
     private int _nextId = 1;
-
-    public OrderManager(HttpClient httpClient, ILogger<OrderManager> logger)
-    {
-        _httpClient = httpClient;
-        _logger = logger;
-    }
 
     public IEnumerable<Order> GetAllOrders() => _orders;
 
     public async Task<Order?> CreateOrderAsync(int productId, int quantity)
     {
-        // 1. Call ProductService via REST
-        // NOTE: Adjust the port based on ProductService's launchSettings.json!
         var response = await _httpClient.GetAsync($"http://localhost:5000/api/product/{productId}");
         
         if (!response.IsSuccessStatusCode)
@@ -42,7 +34,6 @@ public class OrderManager : IOrderManager
 
         if (product == null) return null;
 
-        // 2. Business Logic
         var order = new Order
         {
             Id = _nextId++,
@@ -53,7 +44,6 @@ public class OrderManager : IOrderManager
 
         _orders.Add(order);
 
-        // 3. Structured Logging
         _logger.LogInformation(
             "Order successfully created: {@OrderId} for {@ProductId} with {@Quantity}. Total: {@TotalPrice}", 
             order.Id, order.ProductId, order.Quantity, order.TotalPrice);

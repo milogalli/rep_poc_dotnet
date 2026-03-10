@@ -9,21 +9,16 @@ public interface IProductService
     IEnumerable<Product> GetAllProducts();
 }
 
-public class ProductManager : IProductService
+public class ProductManager(ILogger<ProductManager> logger) : IProductService
 {
-    private readonly ILogger<ProductManager> _logger;
+    private readonly ILogger<ProductManager> _logger = logger;
    
     // In-memory store for PoC
-    private readonly List<Product> _products = new()
-    {
+    private readonly List<Product> _products =
+    [
         new Product { Id = 1, Name = "Laptop", Price = 1200.00m },
         new Product { Id = 2, Name = "Mouse", Price = 25.50m }
-    };
-
-    public ProductManager(ILogger<ProductManager> logger)
-    {
-        _logger = logger;
-    }
+    ];
 
     public IEnumerable<Product> GetAllProducts() => _products;
 

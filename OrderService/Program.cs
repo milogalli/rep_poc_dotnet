@@ -6,7 +6,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// DI Registration including HttpClient for REST communication
 builder.Services.AddHttpClient<IOrderManager, OrderManager>();
 
 var app = builder.Build();
