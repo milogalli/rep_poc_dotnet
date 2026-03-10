@@ -31,9 +31,12 @@ public class OrderController(IOrderService orderManager) : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Order>> CreateOrder([FromQuery] int productId, [FromQuery] int quantity)
     {
-        var order = await _orderManager.CreateOrderAsync(productId, quantity);
-        if (order == null) return BadRequest("Invalid Product ID");
-        
-        return Ok(order);
+        if (!ValidationHelpers.isValidEmail("pippo@gmail.com"))
+        {
+            var order = await _orderManager.CreateOrderAsync(productId, quantity);
+            if (order == null) return BadRequest("Invalid Product ID");
+
+            return Ok(order);
+        }
     }
 }
