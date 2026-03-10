@@ -22,6 +22,7 @@ public class ProductManager(ILogger<ProductManager> logger) : IProductService
 
     public IEnumerable<Product> GetAllProducts() => _products;
 
+
     public Product? GetProductById(int id)
     {
         var product = _products.FirstOrDefault(p => p.Id == id);

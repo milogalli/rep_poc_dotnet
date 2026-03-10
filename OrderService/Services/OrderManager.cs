@@ -3,25 +3,30 @@ namespace OrderService.Services;
 using System.Text.Json;
 using OrderService.Models;
 using Microsoft.Extensions.Logging;
+using OrderService.Controllers;
 
-public interface IOrderManager
+
+public interface IOrderService
 {
     Task<Order?> CreateOrderAsync(int productId, int quantity);
     IEnumerable<Order> GetAllOrders();
 }
 
-public class OrderManager(HttpClient httpClient, ILogger<OrderManager> logger) : IOrderManager
+public class OrderManager(HttpClient httpClient,IConfiguration configuration, ILogger<OrderController> logger) : IOrderService
 {
     private readonly HttpClient _httpClient = httpClient;
-    private readonly ILogger<OrderManager> _logger = logger;
+    private readonly ILogger<OrderController> _logger = logger;
     private readonly List<Order> _orders = [];
+    private readonly string _baseUrl = configuration["ProductService:BaseUrl"] ?? throw new InvalidOperationException("ProductService:BaseUrl not configured");
     private int _nextId = 1;
 
     public IEnumerable<Order> GetAllOrders() => _orders;
 
+  
     public async Task<Order?> CreateOrderAsync(int productId, int quantity)
     {
-        var response = await _httpClient.GetAsync($"http://localhost:5000/api/product/{productId}");
+        
+         var response = await _httpClient.GetAsync($"{_baseUrl}/api/product/{productId}");
         
         if (!response.IsSuccessStatusCode)
         {
@@ -30,7 +35,8 @@ public class OrderManager(HttpClient httpClient, ILogger<OrderManager> logger) :
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        var product = JsonSerializer.Deserialize<ProductDto>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        var product = JsonSerializer.Deserialize<ProductDto>(
+            content, options: new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
         if (product == null) return null;
 
