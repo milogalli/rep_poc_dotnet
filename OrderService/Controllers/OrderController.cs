@@ -3,6 +3,8 @@ namespace OrderService.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Services;
 using OrderService.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+
 
 [ApiController]
 [Route("api/[controller]")]
@@ -28,6 +30,8 @@ public class OrderController(IOrderService orderManager) : ControllerBase
     /// <param name="quantity">The number of units to order. Must be a positive integer.</param>
     /// <returns>An ActionResult containing the created Order object if successful; otherwise, a BadRequest result indicating an
     /// invalid product ID.</returns>
+    
+    
     [HttpPost]
     public async Task<ActionResult<Order>> CreateOrder([FromQuery] int productId, [FromQuery] int quantity)
     {
