@@ -1,6 +1,8 @@
 using OrderService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 builder.Services.Configure<OrderServiceOptions>(builder.Configuration.GetSection("ProductService"));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
