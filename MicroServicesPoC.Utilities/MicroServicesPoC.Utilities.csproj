@@ -12,9 +12,6 @@
     <Company>Reply Cluster Mesh</Company>
     <Description>Test for Nuget packaging</Description>
     <PackageTags>utilities;extensions;microservices</PackageTags>
-    <RepositoryUrl>https://github.com/milogalli/rep_poc_dotnet</RepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>

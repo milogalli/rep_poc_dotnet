@@ -3,6 +3,7 @@ namespace OrderService.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Services;
 using OrderService.Models;
+using MicroServicePoC.Utilities;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -31,12 +32,13 @@ public class OrderController(IOrderService orderManager) : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Order>> CreateOrder([FromQuery] int productId, [FromQuery] int quantity)
     {
-        if (!ValidationHelpers.isValidEmail("pippo@gmail.com"))
+        if (ValidationHelpers.IsValidEmail("pippo@gmail.com"))
         {
             var order = await _orderManager.CreateOrderAsync(productId, quantity);
             if (order == null) return BadRequest("Invalid Product ID");
 
             return Ok(order);
         }
+        return BadRequest("Email not validate");
     }
 }

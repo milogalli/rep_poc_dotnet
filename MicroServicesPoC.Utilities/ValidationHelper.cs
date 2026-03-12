@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 
 namespace MicroServicePoC.Utilities
 {
@@ -7,22 +6,7 @@ namespace MicroServicePoC.Utilities
     {
         public static bool IsValidEmail(string email)
         {
-            if (string.IsNullOrWhiteSpace(email)) return false;
-            
-            try
-            {
-                var addr = new MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public static bool IsValidGuid(string guid)
-        {
-            return Guid.TryParse(guid, out _);
+            return !string.IsNullOrWhiteSpace(email);
         }
     }
 }
