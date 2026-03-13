@@ -3,12 +3,7 @@ namespace OrderService.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Services;
 using OrderService.Models;
-<<<<<<< HEAD
-using Swashbuckle.AspNetCore.SwaggerGen;
-
-=======
 using MicroServicePoC.Utilities;
->>>>>>> add_nuget_package
 
 [ApiController]
 [Route("api/[controller]")]
