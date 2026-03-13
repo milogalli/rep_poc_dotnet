@@ -1,8 +1,9 @@
-﻿<Solution><PropertyGroup> 
+<Solution><PropertyGroup> 
     <UserSecretsId>a2f6548e-484f-46d6-8463-98ddcd3b616c</UserSecretsId>
   </PropertyGroup>
   <Project Path="OrderService/OrderService.csproj" />
   <Project Path="ProductService/ProductService.csproj" />
   <Project Path="ProductService.Tests/ProductService.Tests.csproj" />
+  <Project Path="MicroServicesPoC.Utilities/MicroServicesPoC.Utilities.csproj" />
   <Project Path="OrderService.Tests/OrderService.Tests.csproj" />
 </Solution>

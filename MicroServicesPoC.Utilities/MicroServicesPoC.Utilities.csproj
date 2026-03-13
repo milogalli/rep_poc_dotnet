@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!-- NuGet Package Configuration -->
+    <PackageId>MicroServicePoC.Utilities</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Milo Galli</Authors>
+    <Company>Reply Cluster Mesh</Company>
+    <Description>Test for Nuget packaging</Description>
+    <PackageTags>utilities;extensions;microservices</PackageTags>
+    
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+</Project>

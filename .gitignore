@@ -5,7 +5,7 @@
 
 # dotenv files
 .env
-
+.zed
 # User-specific files
 *.rsuser
 *.suo

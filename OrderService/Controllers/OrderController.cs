@@ -3,8 +3,12 @@ namespace OrderService.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Services;
 using OrderService.Models;
+<<<<<<< HEAD
 using Swashbuckle.AspNetCore.SwaggerGen;
 
+=======
+using MicroServicePoC.Utilities;
+>>>>>>> add_nuget_package
 
 [ApiController]
 [Route("api/[controller]")]
@@ -35,9 +39,13 @@ public class OrderController(IOrderService orderManager) : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Order>> CreateOrder([FromQuery] int productId, [FromQuery] int quantity)
     {
-        var order = await _orderManager.CreateOrderAsync(productId, quantity);
-        if (order == null) return BadRequest("Invalid Product ID");
-        
-        return Ok(order);
+        if (ValidationHelpers.IsValidEmail("pippo@gmail.com"))
+        {
+            var order = await _orderManager.CreateOrderAsync(productId, quantity);
+            if (order == null) return BadRequest("Invalid Product ID");
+
+            return Ok(order);
+        }
+        return BadRequest("Email not validate");
     }
 }
